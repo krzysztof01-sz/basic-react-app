@@ -1,26 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+const allUsers = ["Anna", "Krzysiek", "Tomek", "Kasia", "Kamil", "Rysiek"];
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {allUsers: allUsers}
+  }
+  render() {
+    return (
+      <div>
+        <h1>Wyszukiwarka w create-react-app</h1>
+        <input onChange={this.filterNames.bind(this)} type="text" />
+        <MakeHTML usersList={this.state.allUsers}/>
+      </div>
+    )
+  }
+
+  filterNames(e) {
+    const baseText = e.currentTarget.value;
+    const filteredList = allUsers.filter(user => user.startsWith(baseText));
+    this.setState({allUsers: filteredList});
+  }
+}
+
+const MakeHTML = ({usersList}) => {
+  if (usersList.length > 0) {
+    return (
+      <ul>
+        {usersList.map(user => <li key={user}>{user}</li>)}
+      </ul>
+    )
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <p>No results!</p>
+  )
+  
 }
 
 export default App;
