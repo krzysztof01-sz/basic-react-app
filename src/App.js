@@ -36,7 +36,6 @@ const MakeHTML = ({usersList}) => {
   return (
     <p>No results!</p>
   )
-  
 }
 
 export default App;
